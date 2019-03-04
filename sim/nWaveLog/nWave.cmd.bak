@@ -1,0 +1,24 @@
+wvExit
+sition -win $_nWave1 {("G1" 0)}
+wvOpenFile -win $_nWave1 {/home/team06/lab1/sim/Lab1_test.fsdb}
+wvGetSignalOpen -win $_nWave1
+wvGetSignalSetScope -win $_nWave1 "/Top_test"
+wvGetSignalSetScope -win $_nWave1 "/Top_test/dut/top0"
+wvSetPosition -win $_nWave1 {("G1" 11)}
+wvSetPosition -win $_nWave1 {("G1" 11)}
+wvAddSignal -win $_nWave1 -clear
+wvAddSignal -win $_nWave1 -group {"G1" \
+{/Top_test/dut/top0/count\[30:0\]} \
+{/Top_test/dut/top0/i_clk} \
+{/Top_test/dut/top0/i_rst} \
+{/Top_test/dut/top0/i_start} \
+{/Top_test/dut/top0/n_show_num\[3:0\]} \
+{/Top_test/dut/top0/next_count\[30:0\]} \
+{/Top_test/dut/top0/next_state\[1:0\]} \
+{/Top_test/dut/top0/num\[3:0\]} \
+{/Top_test/dut/top0/o_random_out\[3:0\]} \
+{/Top_test/dut/top0/show_num\[3:0\]} \
+{/Top_test/dut/top0/state\[1:0\]} \
+}
+wvAddSignal -win $_nWave1 -group {"G2" \
+}
