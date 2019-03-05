@@ -59,43 +59,48 @@ module Top(
 			n_num = num;
 
 		end else begin
-			n_run = 
+			n_run = ~(count == 30'd30000 * base);
+			n_count = i_start ? 30'd0 : count+1;
+			case (count)
+				30'd500   * base,
+				30'd1000  * base,
+				30'd1500  * base,
+				30'd2000  * base,
+				30'd2500  * base,
+				30'd3000  * base,
+				30'd3500  * base,
+				30'd4000  * base,
+				30'd4500  * base,
+				30'd5000  * base,
+				30'd5500  * base,
+				30'd6000  * base,
+				30'd6500  * base,
+				30'd7000  * base,
+				30'd7500  * base,
+				30'd8000  * base,
+				30'd8500  * base,
+				30'd9000  * base,
+				30'd9500  * base, 
+				30'd10000 * base,
+				30'd11000 * base,
+				30'd12000 * base,
+				30'd13000 * base,
+				30'd14000 * base,
+				30'd15000 * base,
+				30'd16000 * base,
+				30'd17000 * base,
+				30'd18000 * base,
+				30'd19000 * base,
+				30'd20000 * base,
+				30'd22500 * base,
+				30'd25000 * base,
+				30'd17500 * base,
+				30'd30000 * base : n_num = random_num;
+
+				default : n_num = num;
+			endcase
 		end
 	end
-	if(count == 30'd500_0000) n_show_num = num;
-				else if(count == 30'd1000_0000) n_show_num = num;
-				else if(count == 30'd1500_0000) n_show_num = num;
-				else if(count == 30'd2000_0000) n_show_num = num;
-				else if(count == 30'd2500_0000) n_show_num = num;
-				else if(count == 30'd3000_0000) n_show_num = num;
-				else if(count == 30'd3500_0000) n_show_num = num;
-				else if(count == 30'd4000_0000) n_show_num = num;
-				else if(count == 30'd4500_0000) n_show_num = num;
-				else if(count == 30'd5000_0000) n_show_num = num;
-				else if(count == 30'd5500_0000) n_show_num = num;
-				else if(count == 30'd6000_0000) n_show_num = num;
-				else if(count == 30'd6500_0000) n_show_num = num;
-				else if(count == 30'd7000_0000) n_show_num = num;
-				else if(count == 30'd7500_0000) n_show_num = num;
-				else if(count == 30'd8000_0000) n_show_num = num;
-				else if(count == 30'd8500_0000) n_show_num = num;
-				else if(count == 30'd9000_0000) n_show_num = num;
-				else if(count == 30'd9500_0000) n_show_num = num;
-				else if(count == 30'd1_0000_0000) n_show_num = num;
-				if(count == 30'd1_1000_0000) n_show_num = num;
-				if(count == 30'd1_2000_0000) n_show_num = num;
-				if(count == 30'd1_3000_0000) n_show_num = num;
-				if(count == 30'd1_4000_0000) n_show_num = num;
-				if(count == 30'd1_5000_0000) n_show_num = num;
-				if(count == 30'd1_6000_0000) n_show_num = num;
-				if(count == 30'd1_7000_0000) n_show_num = num;
-				if(count == 30'd1_8000_0000) n_show_num = num;
-				if(count == 30'd1_9000_0000) n_show_num = num;
-				if(count == 30'd2_0000_0000) n_show_num = num;
-				if(count == 30'd2_2500_0000) n_show_num = num;	
-				if(count == 30'd2_5000_0000) n_show_num = num;
-				if(count == 30'd2_7500_0000) n_show_num = num;
-				if(count == 30'd3_0000_0000) n_show_num = num;
 
 	
 endmodule
