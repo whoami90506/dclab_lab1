@@ -32,32 +32,37 @@ module Top(
 	output [3:0] o_random_out
 );
 
-	parameter IDLE = 2'b00;
-	parameter RUN_1 = 2'b01;
-	parameter RUN_2 = 2'b10;
-	parameter RUN_3 = 2'b11;
+	parameter base = 30'd10000;
 
-	logic [1:0]state, next_state;
-	logic [29:0]count, next_count;
-	logic [3:0]num;
-	logic [3:0] show_num, n_show_num;
+	logic run, n_run;
+	logic [29:0] count, n_count;
+	logic [3:0] num, n_num;
+	logic [3:0] random_num;
+	Random r(.i_clk(i_clk), .i_rst(i_rst), .o_number(random_num));
 
-	Random random(.i_clk(i_clk), .i_rst(i_rst), .o_number(num));
-	assign o_random_out = show_num;
+	always_ff @(posedge i_clk or negedge i_rst) begin
+		if(~i_rst) begin
+			run <= 1'b0;
+			count <= 30'd0;
+			num <= 4'd0;
+		end else begin
+			run <= n_run;
+			count <= n_count;
+			num <= n_num;
+		end
+	end
 
 	always_comb begin
-		case(state)
-			IDLE: begin
-				if(i_start == 0) next_state = IDLE;
-				else next_state = RUN_1; 
-				next_count = 30'b0;
-				n_show_num = show_num;
-			end
-			RUN_1: begin
-				if(count == 30'd1_0000_0000) next_state = RUN_2;
-				else next_state = RUN_1;
-				next_count = count + 1'b1;
-				if(count == 30'd500_0000) n_show_num = num;
+		if (~run) begin
+			n_run = i_start;
+			n_count = 30'd0;
+			n_num = num;
+
+		end else begin
+			n_run = 
+		end
+	end
+	if(count == 30'd500_0000) n_show_num = num;
 				else if(count == 30'd1000_0000) n_show_num = num;
 				else if(count == 30'd1500_0000) n_show_num = num;
 				else if(count == 30'd2000_0000) n_show_num = num;
@@ -77,13 +82,6 @@ module Top(
 				else if(count == 30'd9000_0000) n_show_num = num;
 				else if(count == 30'd9500_0000) n_show_num = num;
 				else if(count == 30'd1_0000_0000) n_show_num = num;
-				else n_show_num = show_num;
-
-			end
-			RUN_2: begin
-				if(count == 30'd2_0000_0000) next_state = RUN_3;
-				else next_state = RUN_2;
-				next_count = count + 1'b1;
 				if(count == 30'd1_1000_0000) n_show_num = num;
 				if(count == 30'd1_2000_0000) n_show_num = num;
 				if(count == 30'd1_3000_0000) n_show_num = num;
@@ -94,33 +92,10 @@ module Top(
 				if(count == 30'd1_8000_0000) n_show_num = num;
 				if(count == 30'd1_9000_0000) n_show_num = num;
 				if(count == 30'd2_0000_0000) n_show_num = num;
-				else n_show_num = show_num;
-			end
-			RUN_3: begin
-				if(count == 30'd30000_0000) next_state = IDLE;
-				else next_state = RUN_3;
-				next_count = count + 1'b1;		
 				if(count == 30'd2_2500_0000) n_show_num = num;	
 				if(count == 30'd2_5000_0000) n_show_num = num;
 				if(count == 30'd2_7500_0000) n_show_num = num;
 				if(count == 30'd3_0000_0000) n_show_num = num;
-				else n_show_num = show_num;	
-			end
-		endcase
-	end
-
-	always_ff@(posedge i_clk or negedge i_rst) begin
-		if(~i_rst)begin
-			state <= IDLE;
-			count <= 30'd0;
-			show_num <= 4'd0;
-		end
-		else begin
-			state <= next_state;
-			count <= next_count;
-			show_num <= n_show_num;
-		end
-	end
 
 	
 endmodule
