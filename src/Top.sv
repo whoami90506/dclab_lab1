@@ -9,13 +9,11 @@ module Random (
     logic [7:0] number, n_number;
     logic [7:0] number_shift;
     logic [7:0] number_mul;
-	logic [7:0] number_ans;
 
     assign o_number = number[5:2];
     assign number_shift = {number[5:0], 2'd0}; // number*4
     assign number_mul = number_shift + number; // number*5
-    assign number_ans = number_mul + increment; //number*5 + increment
-	assign n_number = number_ans;
+    assign n_number = number_mul + increment; //number*5 + increment
 
     always_ff @(posedge i_clk or negedge i_rst) begin
         if(~i_rst) begin
@@ -56,7 +54,7 @@ module Top(
 				n_show_num = show_num;
 			end
 			RUN_1: begin
-				if(count == 30'd1_0000_00000) next_state = RUN_2;
+				if(count == 30'd1_0000_0000) next_state = RUN_2;
 				else next_state = RUN_1;
 				next_count = count + 1'b1;
 				if(count == 30'd500_0000) n_show_num = num;
