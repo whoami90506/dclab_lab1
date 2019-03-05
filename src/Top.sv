@@ -32,93 +32,75 @@ module Top(
 	output [3:0] o_random_out
 );
 
-	parameter IDLE = 2'b00;
-	parameter RUN_1 = 2'b01;
-	parameter RUN_2 = 2'b10;
-	parameter RUN_3 = 2'b11;
+	parameter base = 30'd10000;
 
-	logic [1:0]state, next_state;
-	logic [29:0]count, next_count;
-	logic [3:0]num;
-	logic [3:0] show_num, n_show_num;
+	logic run, n_run;
+	logic [29:0] count, n_count;
+	logic [3:0] num, n_num;
+	logic [3:0] random_num;
+	Random r(.i_clk(i_clk), .i_rst(i_rst), .o_number(random_num));
 
-	Random random(.i_clk(i_clk), .i_rst(i_rst), .o_number(num));
-	assign o_random_out = show_num;
+	assign o_random_out = num;
 
-	always_comb begin
-		case(state)
-			IDLE: begin
-				if(i_start == 0) next_state = IDLE;
-				else next_state = RUN_1; 
-				next_count = 30'b0;
-				n_show_num = show_num;
-			end
-			RUN_1: begin
-				if(count == 30'd1_0000_0000) next_state = RUN_2;
-				else next_state = RUN_1;
-				next_count = count + 1'b1;
-				if(count == 30'd500_0000) n_show_num = num;
-				else if(count == 30'd1000_0000) n_show_num = num;
-				else if(count == 30'd1500_0000) n_show_num = num;
-				else if(count == 30'd2000_0000) n_show_num = num;
-				else if(count == 30'd2500_0000) n_show_num = num;
-				else if(count == 30'd3000_0000) n_show_num = num;
-				else if(count == 30'd3500_0000) n_show_num = num;
-				else if(count == 30'd4000_0000) n_show_num = num;
-				else if(count == 30'd4500_0000) n_show_num = num;
-				else if(count == 30'd5000_0000) n_show_num = num;
-				else if(count == 30'd5500_0000) n_show_num = num;
-				else if(count == 30'd6000_0000) n_show_num = num;
-				else if(count == 30'd6500_0000) n_show_num = num;
-				else if(count == 30'd7000_0000) n_show_num = num;
-				else if(count == 30'd7500_0000) n_show_num = num;
-				else if(count == 30'd8000_0000) n_show_num = num;
-				else if(count == 30'd8500_0000) n_show_num = num;
-				else if(count == 30'd9000_0000) n_show_num = num;
-				else if(count == 30'd9500_0000) n_show_num = num;
-				else if(count == 30'd1_0000_0000) n_show_num = num;
-				else n_show_num = show_num;
-
-			end
-			RUN_2: begin
-				if(count == 30'd2_0000_0000) next_state = RUN_3;
-				else next_state = RUN_2;
-				next_count = count + 1'b1;
-				if(count == 30'd1_1000_0000) n_show_num = num;
-				if(count == 30'd1_2000_0000) n_show_num = num;
-				if(count == 30'd1_3000_0000) n_show_num = num;
-				if(count == 30'd1_4000_0000) n_show_num = num;
-				if(count == 30'd1_5000_0000) n_show_num = num;
-				if(count == 30'd1_6000_0000) n_show_num = num;
-				if(count == 30'd1_7000_0000) n_show_num = num;
-				if(count == 30'd1_8000_0000) n_show_num = num;
-				if(count == 30'd1_9000_0000) n_show_num = num;
-				if(count == 30'd2_0000_0000) n_show_num = num;
-				else n_show_num = show_num;
-			end
-			RUN_3: begin
-				if(count == 30'd30000_0000) next_state = IDLE;
-				else next_state = RUN_3;
-				next_count = count + 1'b1;		
-				if(count == 30'd2_2500_0000) n_show_num = num;	
-				if(count == 30'd2_5000_0000) n_show_num = num;
-				if(count == 30'd2_7500_0000) n_show_num = num;
-				if(count == 30'd3_0000_0000) n_show_num = num;
-				else n_show_num = show_num;	
-			end
-		endcase
+	always_ff @(posedge i_clk or negedge i_rst) begin
+		if(~i_rst) begin
+			run <= 1'b0;
+			count <= 30'd0;
+			num <= 4'd0;
+		end else begin
+			run <= n_run;
+			count <= n_count;
+			num <= n_num;
+		end
 	end
 
-	always_ff@(posedge i_clk or negedge i_rst) begin
-		if(~i_rst)begin
-			state <= IDLE;
-			count <= 30'd0;
-			show_num <= 4'd0;
-		end
-		else begin
-			state <= next_state;
-			count <= next_count;
-			show_num <= n_show_num;
+	always_comb begin
+		if (~run) begin
+			n_run = i_start;
+			n_count = 30'd0;
+			n_num = num;
+
+		end else begin
+			n_run = ~(count == 30'd30000 * base);
+			n_count = i_start ? 30'd0 : count+1;
+			case (count)
+				30'd500   * base,
+				30'd1000  * base,
+				30'd1500  * base,
+				30'd2000  * base,
+				30'd2500  * base,
+				30'd3000  * base,
+				30'd3500  * base,
+				30'd4000  * base,
+				30'd4500  * base,
+				30'd5000  * base,
+				30'd5500  * base,
+				30'd6000  * base,
+				30'd6500  * base,
+				30'd7000  * base,
+				30'd7500  * base,
+				30'd8000  * base,
+				30'd8500  * base,
+				30'd9000  * base,
+				30'd9500  * base, 
+				30'd10000 * base,
+				30'd11000 * base,
+				30'd12000 * base,
+				30'd13000 * base,
+				30'd14000 * base,
+				30'd15000 * base,
+				30'd16000 * base,
+				30'd17000 * base,
+				30'd18000 * base,
+				30'd19000 * base,
+				30'd20000 * base,
+				30'd22500 * base,
+				30'd25000 * base,
+				30'd27500 * base,
+				30'd30000 * base : n_num = random_num;
+
+				default : n_num = num;
+			endcase
 		end
 	end
 

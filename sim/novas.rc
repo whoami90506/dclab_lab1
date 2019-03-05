@@ -160,14 +160,15 @@ StickSet-LineWidth = 1
 StickSet-FillColor = purple6
 StickSet-TextColor = black
 [FSM_Dlg-Print]
-Orientation = Landscape  
+Orientation = Landscape 
 [FileBrowser]
-nWaveOpenFsdbDirHistory = /home/team06/lab1/sim/Lab1_test.fsdb,/home/team06/lab1/sim,
+nWaveOpenFsdbDirHistory = /home/team06/chengdelin/dclab_lab1/sim/Lab1_test.fsdb,/home/team06/lab1/sim,/home/team06/lab1/sim/Lab1_test.fsdb,/home/team06/chengdelin/dclab_lab1/sim,
 [Form]
 version = Verdi3_2013.07
-wave/openWFile.fm = 100,170,823,682
 wave/gotoGroup.fm = 100,65,300,411
+wave/openWFile.fm = 100,170,823,682
 wave/getSignal.fm = 100,-5,856,560
+wave/unknownSave.fm = 100,135,520,272
 [General]
 autoSaveSession = FALSE
 TclAutoSource = 
@@ -647,7 +648,8 @@ curveWindow_Drag&Drop_Mode = TRUE
 hspiceIncOpenMode = TRUE
 pcSelectMode = TRUE
 hierarchyDelimiter = /
-RecentFile1 = /home/team06/lab1/sim/Lab1_test.fsdb
+RecentFile1 = /home/team06/chengdelin/dclab_lab1/sim/Lab1_test.fsdb
+RecentFile2 = /home/team06/lab1/sim/Lab1_test.fsdb
 open_file_time_range = FALSE
 value_window_aligment = Right
 signal_window_alignment = Auto
@@ -758,7 +760,7 @@ AddImportArgument = TRUE
 LineBreakWithScope = TRUE
 StopAfterCompileOption = -tcl
 [turboSchema_Printer_Options]
-Orientation = Landscape  
+Orientation = Landscape 
 [turbo_library]
 bdb_load_scope = 
 [verisity]
