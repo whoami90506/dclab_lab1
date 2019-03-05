@@ -40,6 +40,8 @@ module Top(
 	logic [3:0] random_num;
 	Random r(.i_clk(i_clk), .i_rst(i_rst), .o_number(random_num));
 
+	assign o_random_out = num;
+
 	always_ff @(posedge i_clk or negedge i_rst) begin
 		if(~i_rst) begin
 			run <= 1'b0;
@@ -94,7 +96,7 @@ module Top(
 				30'd20000 * base,
 				30'd22500 * base,
 				30'd25000 * base,
-				30'd17500 * base,
+				30'd27500 * base,
 				30'd30000 * base : n_num = random_num;
 
 				default : n_num = num;
