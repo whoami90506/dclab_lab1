@@ -1,5 +1,5 @@
 irun(64): 12.20-s012: (c) Copyright 1995-2013 Cadence Design Systems, Inc.
-TOOL:	irun(64)	12.20-s012: Started on Mar 02, 2019 at 17:00:39 CST
+TOOL:	irun(64)	12.20-s012: Started on Mar 06, 2019 at 02:13:18 CST
 irun
 	+access+rw
 	-loadvpi /opt/nicotb/lib//cpp/nicotb.so:VpiBoot
@@ -8,10 +8,10 @@ irun
 	/opt/nicotb/lib//verilog/Utils.sv
 	Top_test.sv
 Recompiling... reason: file '../src/Top.sv' is newer than expected.
-	expected: Sat Mar  2 16:47:23 2019
-	actual:   Sat Mar  2 17:00:24 2019
+	expected: Wed Mar  6 02:10:05 2019
+	actual:   Wed Mar  6 02:13:16 2019
 file: Top_test.sv
-	module worklib.Random:sv
+	module worklib.Top:sv
 		errors: 0, warnings: 0
 		Caching library 'worklib' ....... Done
 	Elaborating the design hierarchy:
@@ -148,19 +148,19 @@ ncelab: (../src/DE2_115/Debounce.sv,7): o_pos
 		Top_test
 	Building instance overlay tables: .................... Done
 	Generating native compiled code:
-		worklib.Random:sv <0x2e5cd1c3>
-			streams:   6, words:  1274
+		worklib.Top:sv <0x58f8b3cc>
+			streams:   5, words:  3401
 	Loading native compiled code:     .................... Done
 	Building instance specific data structures.
 	Design hierarchy summary:
 		                 Instances  Unique
 		Modules:                 6       6
-		Registers:              27      27
+		Registers:              26      26
 		Scalar wires:          107       -
-		Vectored wires:         45       -
+		Vectored wires:         44       -
 		Always blocks:           8       8
 		Initial blocks:          3       3
-		Cont. assignments:       5      15
+		Cont. assignments:       4      14
 		Pseudo assignments:      6       6
 		Simulation timescale:  1us
 	Writing initial simulation snapshot: worklib.Top_test:sv
@@ -176,7 +176,7 @@ FSDB Dumper for IUS, Release Verdi3_2013.07, Linux x86_64/64bit, 07/04/2013
 *Verdi3* : Begin traversing the scope (Top_test), layer (0).
 *Verdi3* : Enable +mda dumping.
 *Verdi3* : End of traversing.
-Simulation complete via $finish(1) at time 32599950 US + 1
+Simulation complete via $finish(1) at time 28199950 US + 1
 ./Top_test.sv:9 `WithFinish
 ncsim> exit
-TOOL:	irun(64)	12.20-s012: Exiting on Mar 02, 2019 at 17:02:06 CST  (total: 00:01:27)
+TOOL:	irun(64)	12.20-s012: Exiting on Mar 06, 2019 at 02:14:39 CST  (total: 00:01:21)

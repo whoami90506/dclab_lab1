@@ -160,13 +160,14 @@ StickSet-LineWidth = 1
 StickSet-FillColor = purple6
 StickSet-TextColor = black
 [FSM_Dlg-Print]
-Orientation = Landscape  
+Orientation = Landscape 
 [FileBrowser]
 nWaveOpenFsdbDirHistory = /home/team06/lab1/sim/Lab1_test.fsdb,/home/team06/lab1/sim,
 [Form]
 version = Verdi3_2013.07
-wave/openWFile.fm = 100,135,823,682
-wave/getSignal.fm = 100,100,856,560
+wave/openWFile.fm = 100,170,823,682
+wave/gotoGroup.fm = 100,65,300,411
+wave/getSignal.fm = 100,-5,856,560
 [General]
 autoSaveSession = FALSE
 TclAutoSource = 
@@ -425,8 +426,8 @@ waveform_vertical_scroll_bar = TRUE
 scope_to_save_with_macro
 open_file_dir
 open_rc_file_dir
-getSignalForm = 100 100 856 560 200 439 400 120
-viewPort = 8 31 1280 657 145 65
+getSignalForm = 100 -5 856 560 200 439 400 120
+viewPort = 71 30 1849 1050 145 65
 signalSpacing = 5
 digitalSignalHeight = 15
 analogSignalHeight = 98
@@ -757,7 +758,7 @@ AddImportArgument = TRUE
 LineBreakWithScope = TRUE
 StopAfterCompileOption = -tcl
 [turboSchema_Printer_Options]
-Orientation = Landscape  
+Orientation = Landscape 
 [turbo_library]
 bdb_load_scope = 
 [verisity]
