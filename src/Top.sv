@@ -64,6 +64,7 @@ module Top(
 			n_run = ~(count == 30'd30000 * base);
 			n_count = i_start ? 30'd0 : count+1;
 			case (count)
+				30'd0,
 				30'd500   * base,
 				30'd1000  * base,
 				30'd1500  * base,
