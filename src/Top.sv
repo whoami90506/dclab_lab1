@@ -9,11 +9,13 @@ module Random (
     logic [7:0] number, n_number;
     logic [7:0] number_shift;
     logic [7:0] number_mul;
+	logic [7:0] number_ans;
 
     assign o_number = number[5:2];
     assign number_shift = {number[5:0], 2'd0}; // number*4
     assign number_mul = number_shift + number; // number*5
-    assign n_number = number_mul + increment; //number*5 + increment
+    assign number_ans = number_mul + increment; //number*5 + increment
+	assign n_number = number_ans;
 
     always_ff @(posedge i_clk or negedge i_rst) begin
         if(~i_rst) begin
@@ -38,7 +40,7 @@ module Top(
 	parameter RUN_3 = 2'b11;
 
 	logic [1:0]state, next_state;
-	logic [29:0]count, next_count;
+	logic [30:0]count, next_count;
 	logic [3:0]num;
 	logic [3:0] show_num, n_show_num;
 
@@ -55,6 +57,7 @@ module Top(
 			end
 			RUN_1: begin
 				if(count == 30'd1_0000_0000) next_state = RUN_2;
+				else if(i_start == 1) next_state = IDLE;
 				else next_state = RUN_1;
 				next_count = count + 1'b1;
 				if(count == 30'd500_0000) n_show_num = num;
@@ -82,6 +85,7 @@ module Top(
 			end
 			RUN_2: begin
 				if(count == 30'd2_0000_0000) next_state = RUN_3;
+				else if(i_start == 1) next_state = IDLE;
 				else next_state = RUN_2;
 				next_count = count + 1'b1;
 				if(count == 30'd1_1000_0000) n_show_num = num;
@@ -97,7 +101,8 @@ module Top(
 				else n_show_num = show_num;
 			end
 			RUN_3: begin
-				if(count == 30'd30000_0000) next_state = IDLE;
+				if(count == 30'd300000000) next_state = IDLE;
+				else if(i_start == 1) next_state = IDLE;
 				else next_state = RUN_3;
 				next_count = count + 1'b1;		
 				if(count == 30'd2_2500_0000) n_show_num = num;	
