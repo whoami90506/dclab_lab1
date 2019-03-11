@@ -1,38 +1,10 @@
-/*module Random ( 
-    input i_clk,
-    input i_rst, 
-    output [3:0] o_number
-);
-
-    parameter increment = 8'd3;
-
-    logic [7:0] number, n_number;
-    logic [7:0] number_shift;
-    logic [7:0] number_mul;
-	 logic [7:0] number_ans;
-		
-	 assign n_number = ((number*5+3 ) %256);
-    assign o_number = number[5:2];
-    //assign number_shift = {number[5:0], 2'd0}; // number*4
-    //assign number_mul = number_shift + number; // number*5
-    //assign number_ans = number_mul + increment; //number*5 + increment
-	 //assign n_number = number_ans;
-
-    always_ff @(posedge i_clk or negedge i_rst) begin
-        if(~i_rst) begin
-             number <= 8'd17;
-        end else begin
-             number <= n_number;
-        end
-    end
-
-endmodule
-*/
 module Top(
 	input i_clk,
 	input i_rst,
 	input i_start,
-	output [3:0] o_random_out
+	input [31:0] i_init,
+	output [3:0] o_random_out,
+	output o_idle
 );
 
 	parameter IDLE = 2'b00;
@@ -48,6 +20,7 @@ module Top(
 	logic [31:0] random, n_random;
 	//Random random(.i_clk(i_clk), .i_rst(i_rst), .o_number(num));
 	assign o_random_out = show_num;
+	assign o_idle = (state == IDLE);
 
 	always_comb begin
 		case(state)
@@ -141,14 +114,14 @@ module Top(
 	end
 
 	assign n_random = random*16807 % 2147483647;
-	assign num = random[7:4];
+	assign num = random[27:24];
 	
 	always_ff@(posedge i_clk or negedge i_rst) begin
 		if(~i_rst)begin
 			state <= IDLE;
 			count <= 30'd0;
 			show_num <= 4'd0;
-			random <= 32'd1;
+			random <= i_init;
 		end
 		else begin
 			state <= next_state;

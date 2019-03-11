@@ -135,31 +135,100 @@ module DE2_115(
 	output [16:0] HSMC_TX_D_P,
 	inout [6:0] EX_IO
 );
-	logic keydown;
-	logic [3:0] random_value;
+	logic keydown, keydown2, allkeydown;
+	logic [3:0] seven_value [3:0];
+	logic [3:0] n_seven_value [3:0];
+	logic [3:0] random_value [3:0];
+	logic top_idle [3:0];
+
+	assign allkeydown = keydown | keydown2;
+
 	Debounce deb0(
 		.i_in(KEY[0]),
 		.i_rst(KEY[1]),
 		.i_clk(CLOCK_50),
 		.o_neg(keydown)
 	);
+	Debounce deb2(
+		.i_in(KEY[2]),
+		.i_rst(KEY[1]),
+		.i_clk(CLOCK_50),
+		.o_neg(keydown2)
+	);
+
 	Top top0(
 		.i_clk(CLOCK_50),
 		.i_rst(KEY[1]),
-		.i_start(keydown),
-		.o_random_out(random_value)
+		.i_start(allkeydown),
+		.i_init(32'd1),
+		.o_random_out(random_value[0]),
+		.o_idle(top_idle[0])
 	);
 	SevenHexDecoder seven_dec0(
-		.i_hex(random_value),
+		.i_hex(seven_value[0]),
 		.o_seven_ten(HEX1),
 		.o_seven_one(HEX0)
 	);
-	assign HEX2 = '1;
-	assign HEX3 = '1;
-	assign HEX4 = '1;
-	assign HEX5 = '1;
-	assign HEX6 = '1;
-	assign HEX7 = '1;
+
+	Top top1(
+		.i_clk(CLOCK_50),
+		.i_rst(KEY[1]),
+		.i_start(keydown2),
+		.i_init(32'd806449),
+		.o_random_out(random_value[1]),
+		.o_idle(top_idle[1])
+	);
+	SevenHexDecoder seven_dec1(
+		.i_hex(seven_value[1]),
+		.o_seven_ten(HEX3),
+		.o_seven_one(HEX2)
+	);
+
+	Top top2(
+		.i_clk(CLOCK_50),
+		.i_rst(KEY[1]),
+		.i_start(keydown2),
+		.i_init(32'd123456789),
+		.o_random_out(random_value[2]),
+		.o_idle(top_idle[2])
+	);
+	SevenHexDecoder seven_dec2(
+		.i_hex(seven_value[2]),
+		.o_seven_ten(HEX5),
+		.o_seven_one(HEX4)
+	);
+
+	Top top3(
+		.i_clk(CLOCK_50),
+		.i_rst(KEY[1]),
+		.i_start(keydown2),
+		.i_init(32'd9487948),
+		.o_random_out(random_value[3]),
+		.o_idle(top_idle[3])
+	);
+	SevenHexDecoder seven_dec3(
+		.i_hex(seven_value[3]),
+		.o_seven_ten(HEX7),
+		.o_seven_one(HEX6)
+	);
+
+	always_ff @(posedge CLOCK_50 or negedge KEY[1]) begin
+		if(~KEY[1]) begin
+			for (int i = 0; i < 4; i++) seven_value[i] = 4'd0;
+		end else begin
+			for (int i = 0; i < 4; i++) seven_value[i] = n_seven_value[i];
+		end
+	end
+
+	always_comb begin
+		n_seven_value[0] = random_value[0];
+
+		for (int i = 1; i < 4; i++) begin
+			if(~top_idle[i])n_seven_value[i] = random_value[i];
+			else if (keydown & top_idle[0]) n_seven_value[i] = seven_value[i-1];
+			else n_seven_value[i] = seven_value[i];
+		end
+	end
 
 `ifdef DUT_LAB1
 	initial begin
