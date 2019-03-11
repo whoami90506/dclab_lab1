@@ -147,6 +147,7 @@ module DE2_115(
 		.i_clk(CLOCK_50),
 		.i_rst(KEY[1]),
 		.i_start(keydown),
+		.i_init(32'd1),
 		.o_random_out(random_value)
 	);
 	SevenHexDecoder seven_dec0(

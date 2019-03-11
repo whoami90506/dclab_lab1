@@ -1,5 +1,5 @@
 Fitter report for DE2_115
-Tue Mar 12 00:27:12 2019
+Tue Mar 12 00:43:13 2019
 Quartus II 64-Bit Version 15.0.0 Build 145 04/22/2015 SJ Full Version
 
 
@@ -71,7 +71,7 @@ agreement for further details.
 +----------------------------------------------------------------------------------+
 ; Fitter Summary                                                                   ;
 +------------------------------------+---------------------------------------------+
-; Fitter Status                      ; Successful - Tue Mar 12 00:27:12 2019       ;
+; Fitter Status                      ; Successful - Tue Mar 12 00:43:13 2019       ;
 ; Quartus II 64-Bit Version          ; 15.0.0 Build 145 04/22/2015 SJ Full Version ;
 ; Revision Name                      ; DE2_115                                     ;
 ; Top-level Entity Name              ; DE2_115                                     ;
@@ -2907,11 +2907,11 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 ; EX_IO[6]                                                         ;                   ;         ;
 ; CLOCK_50                                                         ;                   ;         ;
 ; KEY[1]                                                           ;                   ;         ;
-;      - Top:top0|random[4]                                        ; 1                 ; 6       ;
 ;      - Top:top0|show_num[0]                                      ; 1                 ; 6       ;
 ;      - Top:top0|show_num[1]                                      ; 1                 ; 6       ;
 ;      - Top:top0|show_num[2]                                      ; 1                 ; 6       ;
 ;      - Top:top0|show_num[3]                                      ; 1                 ; 6       ;
+;      - Top:top0|random[4]                                        ; 1                 ; 6       ;
 ;      - Top:top0|count[0]                                         ; 1                 ; 6       ;
 ;      - Top:top0|count[1]                                         ; 1                 ; 6       ;
 ;      - Top:top0|count[2]                                         ; 1                 ; 6       ;
@@ -3859,7 +3859,7 @@ Info (170194): Fitter routing operations ending: elapsed time is 00:00:00
 Info (170199): The Fitter performed an Auto Fit compilation.  Optimizations were skipped to reduce compilation time.
     Info (170201): Optimizations that may affect the design's routability were skipped
     Info (170200): Optimizations that may affect the design's timing were skipped
-Info (11888): Total time spent on timing analysis during the Fitter is 0.27 seconds.
+Info (11888): Total time spent on timing analysis during the Fitter is 0.26 seconds.
 Info (334003): Started post-fitting delay annotation
 Info (334004): Delay annotation completed successfully
 Info (334003): Started post-fitting delay annotation
@@ -4010,10 +4010,10 @@ Warning (169064): Following 141 pins have no output enable or a GND or VCC outpu
     Info (169065): Pin EX_IO[6] has a permanently disabled output enable
 Info (144001): Generated suppressed messages file C:/Users/team06/Desktop/dclab_lab1/output_files/DE2_115.fit.smsg
 Info: Quartus II 64-Bit Fitter was successful. 0 errors, 43 warnings
-    Info: Peak virtual memory: 5885 megabytes
-    Info: Processing ended: Tue Mar 12 00:27:13 2019
+    Info: Peak virtual memory: 5891 megabytes
+    Info: Processing ended: Tue Mar 12 00:43:14 2019
     Info: Elapsed time: 00:00:14
-    Info: Total CPU time (on all processors): 00:00:19
+    Info: Total CPU time (on all processors): 00:00:18
 
 
 +----------------------------+

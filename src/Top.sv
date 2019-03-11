@@ -2,7 +2,9 @@ module Top(
 	input i_clk,
 	input i_rst,
 	input i_start,
-	output [3:0] o_random_out
+	input [31:0] i_init,
+	output [3:0] o_random_out,
+	output o_idle
 );
 
 	parameter IDLE = 2'b00;
@@ -18,6 +20,7 @@ module Top(
 	logic [31:0] random, n_random;
 	//Random random(.i_clk(i_clk), .i_rst(i_rst), .o_number(num));
 	assign o_random_out = show_num;
+	assign o_idle = (state == IDLE);
 
 	always_comb begin
 		case(state)
@@ -118,7 +121,7 @@ module Top(
 			state <= IDLE;
 			count <= 30'd0;
 			show_num <= 4'd0;
-			random <= 32'd1;
+			random <= i_init;
 		end
 		else begin
 			state <= next_state;
