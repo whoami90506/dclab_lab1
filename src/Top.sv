@@ -1,33 +1,3 @@
-/*module Random ( 
-    input i_clk,
-    input i_rst, 
-    output [3:0] o_number
-);
-
-    parameter increment = 8'd3;
-
-    logic [7:0] number, n_number;
-    logic [7:0] number_shift;
-    logic [7:0] number_mul;
-	 logic [7:0] number_ans;
-		
-	 assign n_number = ((number*5+3 ) %256);
-    assign o_number = number[5:2];
-    //assign number_shift = {number[5:0], 2'd0}; // number*4
-    //assign number_mul = number_shift + number; // number*5
-    //assign number_ans = number_mul + increment; //number*5 + increment
-	 //assign n_number = number_ans;
-
-    always_ff @(posedge i_clk or negedge i_rst) begin
-        if(~i_rst) begin
-             number <= 8'd17;
-        end else begin
-             number <= n_number;
-        end
-    end
-
-endmodule
-*/
 module Top(
 	input i_clk,
 	input i_rst,
