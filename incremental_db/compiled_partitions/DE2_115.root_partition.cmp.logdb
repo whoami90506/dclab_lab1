@@ -1,2 +1,5 @@
 v1
 PORT_SWAPPING,PORT_SWAP_TYPE_DSPMULT,Top:top0|lpm_mult:Mult0|mult_rgt:auto_generated|mac_mult3,
+PORT_SWAPPING,PORT_SWAP_TYPE_DSPMULT,Top:top1|lpm_mult:Mult0|mult_rgt:auto_generated|mac_mult3,
+PORT_SWAPPING,PORT_SWAP_TYPE_DSPMULT,Top:top2|lpm_mult:Mult0|mult_rgt:auto_generated|mac_mult3,
+PORT_SWAPPING,PORT_SWAP_TYPE_DSPMULT,Top:top3|lpm_mult:Mult0|mult_rgt:auto_generated|mac_mult3,
