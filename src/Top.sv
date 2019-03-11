@@ -35,7 +35,10 @@ module Top(
 	output [3:0] o_random_out
 );
 
-	parameter base = 30'd10000;
+	parameter IDLE = 2'b00;
+	parameter RUN_1 = 2'b01;
+	parameter RUN_2 = 2'b10;
+	parameter RUN_3 = 2'b11;
 
 	logic [1:0]state, next_state;
 	logic [29:0]count, next_count;
