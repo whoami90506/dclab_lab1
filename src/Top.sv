@@ -1,4 +1,4 @@
-module Random ( 
+/*module Random ( 
     input i_clk,
     input i_rst, 
     output [3:0] o_number
@@ -9,11 +9,14 @@ module Random (
     logic [7:0] number, n_number;
     logic [7:0] number_shift;
     logic [7:0] number_mul;
-
+	 logic [7:0] number_ans;
+		
+	 assign n_number = ((number*5+3 ) %256);
     assign o_number = number[5:2];
-    assign number_shift = {number[5:0], 2'd0}; // number*4
-    assign number_mul = number_shift + number; // number*5
-    assign n_number = number_mul + increment; //number*5 + increment
+    //assign number_shift = {number[5:0], 2'd0}; // number*4
+    //assign number_mul = number_shift + number; // number*5
+    //assign number_ans = number_mul + increment; //number*5 + increment
+	 //assign n_number = number_ans;
 
     always_ff @(posedge i_clk or negedge i_rst) begin
         if(~i_rst) begin
@@ -24,7 +27,7 @@ module Random (
     end
 
 endmodule
-
+*/
 module Top(
 	input i_clk,
 	input i_rst,
@@ -34,74 +37,121 @@ module Top(
 
 	parameter base = 30'd10000;
 
-	logic run, n_run;
-	logic [29:0] count, n_count;
-	logic [3:0] num, n_num;
-	logic [3:0] random_num;
-	Random r(.i_clk(i_clk), .i_rst(i_rst), .o_number(random_num));
+	logic [1:0]state, next_state;
+	logic [29:0]count, next_count;
+	logic [3:0] num;
+	logic [3:0] show_num, n_show_num;
 
-	assign o_random_out = num;
-
-	always_ff @(posedge i_clk or negedge i_rst) begin
-		if(~i_rst) begin
-			run <= 1'b0;
-			count <= 30'd0;
-			num <= 4'd0;
-		end else begin
-			run <= n_run;
-			count <= n_count;
-			num <= n_num;
-		end
-	end
+	logic [31:0] random, n_random;
+	//Random random(.i_clk(i_clk), .i_rst(i_rst), .o_number(num));
+	assign o_random_out = show_num;
 
 	always_comb begin
-		if (~run) begin
-			n_run = i_start;
-			n_count = 30'd0;
-			n_num = num;
+		case(state)
+			IDLE: begin
+				if(i_start == 0) next_state = IDLE;
+				else next_state = RUN_1; 
+				next_count = 30'b0;
+				n_show_num = show_num;
+			end
+			RUN_1: begin
+				if(count == 30'd1_0000_0000)begin
+					next_state = RUN_2;
+					next_count = count + 1'b1;
+				end
+				else if(i_start == 1)begin
+					next_state = RUN_1;
+					next_count = 0;
+				end
+				else begin
+					next_state = RUN_1;
+					next_count = count + 1'b1;
+				end
+				if(count == 30'd500_0000) n_show_num = num;
+				else if(count == 30'd1000_0000) n_show_num = num;
+				else if(count == 30'd1500_0000) n_show_num = num;
+				else if(count == 30'd2000_0000) n_show_num = num;
+				else if(count == 30'd2500_0000) n_show_num = num;
+				else if(count == 30'd3000_0000) n_show_num = num;
+				else if(count == 30'd3500_0000) n_show_num = num;
+				else if(count == 30'd4000_0000) n_show_num = num;
+				else if(count == 30'd4500_0000) n_show_num = num;
+				else if(count == 30'd5000_0000) n_show_num = num;
+				else if(count == 30'd5500_0000) n_show_num = num;
+				else if(count == 30'd6000_0000) n_show_num = num;
+				else if(count == 30'd6500_0000) n_show_num = num;
+				else if(count == 30'd7000_0000) n_show_num = num;
+				else if(count == 30'd7500_0000) n_show_num = num;
+				else if(count == 30'd8000_0000) n_show_num = num;
+				else if(count == 30'd8500_0000) n_show_num = num;
+				else if(count == 30'd9000_0000) n_show_num = num;
+				else if(count == 30'd9500_0000) n_show_num = num;
+				else if(count == 30'd1_0000_0000) n_show_num = num;
+				else n_show_num = show_num;
 
-		end else begin
-			n_run = ~(count == 30'd30000 * base);
-			n_count = i_start ? 30'd0 : count+1;
-			case (count)
-				30'd0,
-				30'd500   * base,
-				30'd1000  * base,
-				30'd1500  * base,
-				30'd2000  * base,
-				30'd2500  * base,
-				30'd3000  * base,
-				30'd3500  * base,
-				30'd4000  * base,
-				30'd4500  * base,
-				30'd5000  * base,
-				30'd5500  * base,
-				30'd6000  * base,
-				30'd6500  * base,
-				30'd7000  * base,
-				30'd7500  * base,
-				30'd8000  * base,
-				30'd8500  * base,
-				30'd9000  * base,
-				30'd9500  * base, 
-				30'd10000 * base,
-				30'd11000 * base,
-				30'd12000 * base,
-				30'd13000 * base,
-				30'd14000 * base,
-				30'd15000 * base,
-				30'd16000 * base,
-				30'd17000 * base,
-				30'd18000 * base,
-				30'd19000 * base,
-				30'd20000 * base,
-				30'd22500 * base,
-				30'd25000 * base,
-				30'd27500 * base,
-				30'd30000 * base : n_num = random_num;
+			end
+			RUN_2: begin
+				if(count == 30'd2_0000_0000)begin
+					next_state = RUN_3;
+					next_count = count + 1'b1;
+				end
+				else if(i_start == 1)begin
+					next_state = RUN_1;
+					next_count = 0;
+				end
+				else begin 
+					next_state = RUN_2;
+					next_count = count + 1'b1;
+				end
+				if(count == 30'd1_1000_0000) n_show_num = num;
+				else if(count == 30'd1_2000_0000) n_show_num = num;
+				else if(count == 30'd1_3000_0000) n_show_num = num;
+				else if(count == 30'd1_4000_0000) n_show_num = num;
+				else if(count == 30'd1_5000_0000) n_show_num = num;
+				else if(count == 30'd1_6000_0000) n_show_num = num;
+				else if(count == 30'd1_7000_0000) n_show_num = num;
+				else if(count == 30'd1_8000_0000) n_show_num = num;
+				else if(count == 30'd1_9000_0000) n_show_num = num;
+				else if(count == 30'd2_0000_0000) n_show_num = num;
+				else n_show_num = show_num;
+			end
+			RUN_3: begin
+				if(count == 30'd3_0000_0000)begin
+					next_state = IDLE;
+					next_count = count + 1'b1;
+				end
+				else if(i_start == 1)begin
+					next_state = RUN_1;
+					next_count = 0;
+				end
+				else begin 
+					next_state = RUN_3;
+					next_count = count + 1'b1;		
+				end
+				if(count == 30'd2_2500_0000) n_show_num = num;	
+				else if(count == 30'd2_5000_0000) n_show_num = num;
+				else if(count == 30'd2_7500_0000) n_show_num = num;
+				else if(count == 30'd3_0000_0000) n_show_num = num;
+				else n_show_num = show_num;	
+			end
+		endcase
+	end
 
-				default : n_num = num;
-			endcase
+	assign n_random = random*16807 % 2147483647;
+	assign num = random[7:4];
+	
+	always_ff@(posedge i_clk or negedge i_rst) begin
+		if(~i_rst)begin
+			state <= IDLE;
+			count <= 30'd0;
+			show_num <= 4'd0;
+			random <= 32'd1;
+		end
+		else begin
+			state <= next_state;
+			count <= next_count;
+			show_num <= n_show_num;
+			random <= n_random;
 		end
 	end
 
