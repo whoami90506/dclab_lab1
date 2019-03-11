@@ -114,7 +114,7 @@ module Top(
 	end
 
 	assign n_random = random*16807 % 2147483647;
-	assign num = random[7:4];
+	assign num = random[27:24];
 	
 	always_ff@(posedge i_clk or negedge i_rst) begin
 		if(~i_rst)begin

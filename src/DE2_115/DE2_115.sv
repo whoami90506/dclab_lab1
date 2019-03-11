@@ -174,7 +174,7 @@ module DE2_115(
 		.i_clk(CLOCK_50),
 		.i_rst(KEY[1]),
 		.i_start(keydown2),
-		.i_init(32'd3),
+		.i_init(32'd806449),
 		.o_random_out(random_value[1]),
 		.o_idle(top_idle[1])
 	);
@@ -188,7 +188,7 @@ module DE2_115(
 		.i_clk(CLOCK_50),
 		.i_rst(KEY[1]),
 		.i_start(keydown2),
-		.i_init(32'd5),
+		.i_init(32'd123456789),
 		.o_random_out(random_value[2]),
 		.o_idle(top_idle[2])
 	);
@@ -202,7 +202,7 @@ module DE2_115(
 		.i_clk(CLOCK_50),
 		.i_rst(KEY[1]),
 		.i_start(keydown2),
-		.i_init(32'd7),
+		.i_init(32'd9487948),
 		.o_random_out(random_value[3]),
 		.o_idle(top_idle[3])
 	);
